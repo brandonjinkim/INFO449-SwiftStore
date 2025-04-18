@@ -66,4 +66,30 @@ TOTAL: $7.97
 """
         XCTAssertEqual(expectedReceipt, receipt.output())
     }
+    
+    func testTwoForOne() {
+        register.sale(true)
+                
+        register.scan(Item(name: "Beans (8oz Can)", priceEach: 199))
+        register.scan(Item(name: "Beans (8oz Can)", priceEach: 199))
+        register.scan(Item(name: "Beans (8oz Can)", priceEach: 199))
+
+        let subtotal = register.subtotal()
+        XCTAssertEqual(subtotal, 199 * 2)
+
+        let receipt = register.total()
+        
+        let expectedReceipt = """
+        Receipt:
+        Beans (8oz Can): $1.99
+        Beans (8oz Can): $1.99
+        Beans (8oz Can): $0.00
+        ------------------
+        TOTAL: $3.98
+        """
+        print (receipt.output())
+        // Verify receipt output
+        XCTAssertEqual(receipt.output(), expectedReceipt)
+    
+    }
 }
