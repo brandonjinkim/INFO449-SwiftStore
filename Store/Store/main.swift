@@ -24,6 +24,22 @@ class Item : SKU {
     func price() -> Int {
         return priceEach
     }
+}
+
+class ItemByWeight : SKU {
+    let name: String
+    let weight: Double
+    let pricePerPound: Int
+    
+    init(name: String, weight: Double, pricePerPound: Int) {
+        self.name = name
+        self.weight = weight
+        self.pricePerPound = pricePerPound
+    }
+    
+    func price() -> Int {
+        return Int(Double(pricePerPound) * weight)
+    }
     
 }
 
